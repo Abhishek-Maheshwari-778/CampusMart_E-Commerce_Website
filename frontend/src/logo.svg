@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="45" fill="#4285f4" />
+  <circle cx="50" cy="50" r="38" fill="white" />
+  <path d="M30,35 L70,35 L65,65 L35,65 Z" fill="#4285f4" />
+  <rect x="45" y="25" width="10" height="15" rx="2" fill="#4285f4" />
+  <text x="50" y="55" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle" fill="white">CM</text>
+</svg>

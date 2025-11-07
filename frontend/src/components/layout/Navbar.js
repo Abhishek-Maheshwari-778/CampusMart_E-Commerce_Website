@@ -1,10 +1,31 @@
-import React from 'react';
-import { Navbar, Nav, Container, Button, Form, FormControl } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Navbar, Nav, Container, Button, Form, FormControl, NavDropdown, Badge } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart, faUser, faSignInAlt, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingCart, faUser, faSignInAlt, faSearch, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { useAuth } from '../../contexts/AuthContext';
+import { useCart } from '../../contexts/CartContext';
 
 const MainNavbar = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
+  const { user, isAuthenticated, logout } = useAuth();
+  const { cartItems } = useCart();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/marketplace?search=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
+  const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+
   return (
     <Navbar bg="dark" variant="dark" expand="lg" sticky="top" className="mb-3">
       <Container>
@@ -27,16 +48,20 @@ const MainNavbar = () => {
             <Nav.Link as={Link} to="/notes">Notes</Nav.Link>
             <Nav.Link as={Link} to="/gadgets">Gadgets</Nav.Link>
             <Nav.Link as={Link} to="/about">About Us</Nav.Link>
+            <Nav.Link as={Link} to="/faq">FAQ</Nav.Link>
+            <Nav.Link as={Link} to="/contact">Contact Us</Nav.Link>
           </Nav>
           
-          <Form className="d-flex mx-auto">
+          <Form className="d-flex mx-auto" onSubmit={handleSearch}>
             <FormControl
               type="search"
               placeholder="Search products..."
               className="me-2"
               aria-label="Search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <Button variant="outline-light">
+            <Button variant="outline-light" type="submit">
               <FontAwesomeIcon icon={faSearch} />
             </Button>
           </Form>
@@ -47,13 +72,38 @@ const MainNavbar = () => {
             </Button>
             <Nav.Link as={Link} to="/cart">
               <FontAwesomeIcon icon={faShoppingCart} /> Cart
+              {cartItemCount > 0 && (
+                <Badge bg="danger" className="ms-1">{cartItemCount}</Badge>
+              )}
             </Nav.Link>
-            <Nav.Link as={Link} to="/login">
-              <FontAwesomeIcon icon={faSignInAlt} /> Login
-            </Nav.Link>
-            <Nav.Link as={Link} to="/profile">
-              <FontAwesomeIcon icon={faUser} /> Profile
-            </Nav.Link>
+            
+            {isAuthenticated ? (
+              <NavDropdown title={
+                <>
+                  <FontAwesomeIcon icon={faUser} /> {user?.name}
+                </>
+              } id="basic-nav-dropdown">
+                <NavDropdown.Item as={Link} to="/profile">
+                  Profile
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/orders">
+                  My Orders
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item onClick={handleLogout}>
+                  <FontAwesomeIcon icon={faSignOutAlt} /> Logout
+                </NavDropdown.Item>
+              </NavDropdown>
+            ) : (
+              <>
+                <Nav.Link as={Link} to="/login">
+                  <FontAwesomeIcon icon={faSignInAlt} /> Login
+                </Nav.Link>
+                <Nav.Link as={Link} to="/register">
+                  <FontAwesomeIcon icon={faUser} /> Register
+                </Nav.Link>
+              </>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

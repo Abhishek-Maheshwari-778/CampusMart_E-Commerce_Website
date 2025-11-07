@@ -1,0 +1,18 @@
+{
+  "name": "mern-marketplace-tests",
+  "version": "1.0.0",
+  "description": "Test scripts for MERN marketplace application",
+  "main": "index.js",
+  "scripts": {
+    "test:cart": "node test-cart.js",
+    "test:users": "node test-user-management.js",
+    "test:all": "npm run test:cart && npm run test:users"
+  },
+  "dependencies": {
+    "axios": "^1.6.0"
+  },
+  "devDependencies": {},
+  "keywords": ["test", "mern", "marketplace", "cart", "users"],
+  "author": "",
+  "license": "ISC"
+}

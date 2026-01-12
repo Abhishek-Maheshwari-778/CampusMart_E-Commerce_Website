@@ -2,15 +2,9 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Card, Button, Form, InputGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faFilter, faSortAmountDown, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faFilter, faHeart } from '@fortawesome/free-solid-svg-icons';
 
 const ProductList = ({ category }) => {
-  const [filters, setFilters] = useState({
-    priceRange: [0, 5000],
-    condition: [],
-    sortBy: 'newest'
-  });
-
   // Mock products data
   const products = [
     {
@@ -96,14 +90,14 @@ const ProductList = ({ category }) => {
   ];
 
   // Filter products based on category if provided
-  const filteredProducts = category 
+  const filteredProducts = category
     ? products.filter(product => product.category === category)
     : products;
 
   return (
     <Container className="py-4">
       <h2 className="mb-4">{category ? `${category.charAt(0).toUpperCase() + category.slice(1)}` : 'All Products'}</h2>
-      
+
       <Row className="mb-4">
         <Col md={3} className="mb-3 mb-md-0">
           <Card className="filter-sidebar">
@@ -124,11 +118,11 @@ const ProductList = ({ category }) => {
                     </Col>
                   </Row>
                 </Form.Group>
-                
+
                 <Form.Group className="mb-4">
                   <Form.Label>Condition</Form.Label>
                   {['New', 'Like New', 'Good', 'Fair'].map((condition) => (
-                    <Form.Check 
+                    <Form.Check
                       key={condition}
                       type="checkbox"
                       id={`condition-${condition}`}
@@ -137,11 +131,11 @@ const ProductList = ({ category }) => {
                     />
                   ))}
                 </Form.Group>
-                
+
                 <Form.Group className="mb-4">
                   <Form.Label>Category</Form.Label>
                   {['Books', 'Notes', 'Gadgets'].map((cat) => (
-                    <Form.Check 
+                    <Form.Check
                       key={cat}
                       type="checkbox"
                       id={`category-${cat}`}
@@ -151,7 +145,7 @@ const ProductList = ({ category }) => {
                     />
                   ))}
                 </Form.Group>
-                
+
                 <Button variant="primary" className="w-100">
                   Apply Filters
                 </Button>
@@ -159,7 +153,7 @@ const ProductList = ({ category }) => {
             </Card.Body>
           </Card>
         </Col>
-        
+
         <Col md={9}>
           <Row className="mb-3">
             <Col>
@@ -182,16 +176,16 @@ const ProductList = ({ category }) => {
               </Form.Select>
             </Col>
           </Row>
-          
+
           <Row>
             {filteredProducts.map((product) => (
               <Col lg={4} md={6} className="mb-4" key={product.id}>
                 <Card className="h-100 product-card">
                   <div className="product-img-container">
                     <Card.Img variant="top" src={product.image} className="product-img" />
-                    <Button 
-                      variant="light" 
-                      size="sm" 
+                    <Button
+                      variant="light"
+                      size="sm"
                       className="wishlist-btn"
                     >
                       <FontAwesomeIcon icon={faHeart} />
@@ -211,10 +205,10 @@ const ProductList = ({ category }) => {
                     </div>
                   </Card.Body>
                   <Card.Footer className="d-flex justify-content-between bg-white">
-                    <Button 
-                      as={Link} 
-                      to={`/product/${product.id}`} 
-                      variant="primary" 
+                    <Button
+                      as={Link}
+                      to={`/product/${product.id}`}
+                      variant="primary"
                       size="sm"
                     >
                       View Details
@@ -227,13 +221,13 @@ const ProductList = ({ category }) => {
               </Col>
             ))}
           </Row>
-          
+
           <div className="d-flex justify-content-center mt-4">
             <Button variant="outline-primary" className="me-2">Previous</Button>
             {[1, 2, 3].map((page) => (
-              <Button 
-                key={page} 
-                variant={page === 1 ? "primary" : "outline-primary"} 
+              <Button
+                key={page}
+                variant={page === 1 ? "primary" : "outline-primary"}
                 className="me-2"
               >
                 {page}

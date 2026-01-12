@@ -16,21 +16,21 @@ const Footer = () => {
               Your premier campus marketplace — connecting students to buy and sell textbooks, digital notes, and tech gadgets at unbeatable prices.
             </p>
             <div className="social-icons d-flex">
-              <a href="#" className="me-3 text-light social-icon-link">
+              <a href="https://facebook.com" className="me-3 text-light social-icon-link" target="_blank" rel="noopener noreferrer">
                 <FontAwesomeIcon icon={faFacebookF} size="lg" />
               </a>
-              <a href="#" className="me-3 text-light social-icon-link">
+              <a href="https://twitter.com" className="me-3 text-light social-icon-link" target="_blank" rel="noopener noreferrer">
                 <FontAwesomeIcon icon={faTwitter} size="lg" />
               </a>
-              <a href="#" className="me-3 text-light social-icon-link">
+              <a href="https://instagram.com" className="me-3 text-light social-icon-link" target="_blank" rel="noopener noreferrer">
                 <FontAwesomeIcon icon={faInstagram} size="lg" />
               </a>
-              <a href="#" className="text-light social-icon-link">
+              <a href="https://linkedin.com" className="text-light social-icon-link" target="_blank" rel="noopener noreferrer">
                 <FontAwesomeIcon icon={faLinkedin} size="lg" />
               </a>
             </div>
           </Col>
-          
+
           <Col md={3} sm={6} className="mb-4">
             <h5 className="fw-bold mb-3">Quick Links</h5>
             <ul className="list-unstyled footer-links">
@@ -41,7 +41,7 @@ const Footer = () => {
               <li className="mb-2"><Link to="/gadgets" className="text-light">Gadgets</Link></li>
             </ul>
           </Col>
-          
+
           <Col md={3} sm={6} className="mb-4">
             <h5 className="fw-bold mb-3">Support</h5>
             <ul className="list-unstyled footer-links">
@@ -51,7 +51,7 @@ const Footer = () => {
               <li className="mb-2"><Link to="/terms" className="text-light">Terms of Service</Link></li>
             </ul>
           </Col>
-          
+
           <Col md={3} sm={6} className="mb-4">
             <h5 className="fw-bold mb-3">Contact</h5>
             <address className="text-light">
@@ -61,9 +61,9 @@ const Footer = () => {
             </address>
           </Col>
         </Row>
-        
+
         <hr className="mt-4 border-secondary" />
-        
+
         <Row>
           <Col className="text-center py-3">
             <p className="mb-0 text-light">&copy; {new Date().getFullYear()} CampusMart. All rights reserved.</p>

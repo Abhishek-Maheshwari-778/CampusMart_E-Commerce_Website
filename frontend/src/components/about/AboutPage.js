@@ -93,9 +93,9 @@ const AboutPage = () => {
             <Card className="border-0 shadow-sm" style={{ maxWidth: '400px' }}>
               <Card.Body className="text-center p-4">
                 <div className="mentor-image mb-3">
-                  <img 
-                    src="/team/salman-sir.jpg" 
-                    alt="Salman Sir" 
+                  <img
+                    src="/team/salman-sir.jpg"
+                    alt="Salman Sir"
                     className="rounded-circle"
                     width="150"
                     height="150"
@@ -121,8 +121,8 @@ const AboutPage = () => {
                 <Card className="team-card h-100 border-0 shadow-sm">
                   <div className="text-center p-3">
                     <div className="team-member-image mb-3">
-                      <img 
-                        src={member.image} 
+                      <img
+                        src={member.image}
                         alt={member.name}
                         className="rounded-circle"
                         width="120"
@@ -137,10 +137,10 @@ const AboutPage = () => {
                       <h5 className="mb-1">{member.name}</h5>
                       <p className="text-muted mb-3">{member.role}</p>
                       <div className="social-links">
-                        <a href="#" className="me-2 text-secondary">
+                        <a href="https://linkedin.com" className="me-2 text-secondary" target="_blank" rel="noopener noreferrer">
                           <FontAwesomeIcon icon={faLinkedin} />
                         </a>
-                        <a href="#" className="text-secondary">
+                        <a href="https://github.com" className="text-secondary" target="_blank" rel="noopener noreferrer">
                           <FontAwesomeIcon icon={faGithub} />
                         </a>
                       </div>

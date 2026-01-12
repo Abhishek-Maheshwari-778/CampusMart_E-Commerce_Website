@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Container, Row, Col, Button, Card, Badge, Tabs, Tab, Form, Alert, Spinner } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faShare, faShoppingCart, faUser, faClock, faMapMarkerAlt, faTag, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
@@ -23,23 +23,7 @@ const ProductDetail = () => {
   const [selectedOptions, setSelectedOptions] = useState({});
   const [selectedVariant, setSelectedVariant] = useState(null);
 
-  useEffect(() => {
-    fetchProduct();
-  }, [id]);
-
-  useEffect(() => {
-    if (product && product.variants && product.variants.length > 0) {
-      // Find variant that matches selected options
-      const variant = product.variants.find(v => {
-        return Object.entries(selectedOptions).every(([key, value]) =>
-          v.options.get(key) === value
-        );
-      });
-      setSelectedVariant(variant);
-    }
-  }, [selectedOptions, product]);
-
-  const fetchProduct = async () => {
+  const fetchProduct = useCallback(async () => {
     try {
       setLoading(true);
       const response = await axios.get(`/api/products/${id}`);
@@ -52,7 +36,23 @@ const ProductDetail = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
+
+  useEffect(() => {
+    fetchProduct();
+  }, [fetchProduct]);
+
+  useEffect(() => {
+    if (product && product.variants && product.variants.length > 0) {
+      // Find variant that matches selected options
+      const variant = product.variants.find(v => {
+        return Object.entries(selectedOptions).every(([key, value]) =>
+          v.options.get(key) === value
+        );
+      });
+      setSelectedVariant(variant);
+    }
+  }, [selectedOptions, product]);
 
   const handleAddToCart = async () => {
     if (!isAuthenticated) {

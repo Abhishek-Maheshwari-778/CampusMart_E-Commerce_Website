@@ -12,9 +12,9 @@ const Login = () => {
     password: '',
     rememberMe: false
   });
-  
+
   const [error, setError] = useState('');
-  
+
   const handleChange = (e) => {
     const { name, value, checked } = e.target;
     setFormData({
@@ -22,42 +22,42 @@ const Login = () => {
       [name]: name === 'rememberMe' ? checked : value
     });
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // Here you would typically handle the login logic
     console.log('Login form submitted:', formData);
-    
+
     // Mock validation
     if (!formData.email || !formData.password) {
       setError('Please fill in all fields');
       return;
     }
-    
+
     // Clear any previous errors
     setError('');
-    
+
     // Mock successful login
     alert('Login successful! Redirecting to dashboard...');
   };
-  
+
   return (
     <Container className="py-5">
       <Row className="justify-content-center">
         <Col md={8} lg={6}>
-          <Card className="shadow-sm">
+          <Card className="glass-panel border-0">
             <Card.Body className="p-4">
               <div className="text-center mb-4">
                 <h2 className="fw-bold">Welcome Back!</h2>
                 <p className="text-muted">Sign in to continue to CampusMart</p>
               </div>
-              
+
               {error && (
                 <Alert variant="danger" className="mb-4">
                   {error}
                 </Alert>
               )}
-              
+
               <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="email">
                   <Form.Label>Email Address</Form.Label>
@@ -75,7 +75,7 @@ const Login = () => {
                     />
                   </div>
                 </Form.Group>
-                
+
                 <Form.Group className="mb-3" controlId="password">
                   <div className="d-flex justify-content-between">
                     <Form.Label>Password</Form.Label>
@@ -97,7 +97,7 @@ const Login = () => {
                     />
                   </div>
                 </Form.Group>
-                
+
                 <Form.Group className="mb-4" controlId="rememberMe">
                   <Form.Check
                     type="checkbox"
@@ -107,16 +107,16 @@ const Login = () => {
                     onChange={handleChange}
                   />
                 </Form.Group>
-                
+
                 <Button variant="primary" type="submit" className="w-100 mb-3">
                   <FontAwesomeIcon icon={faSignInAlt} className="me-2" />
                   Sign In
                 </Button>
-                
+
                 <div className="text-center mb-3">
                   <span className="text-muted">Or sign in with</span>
                 </div>
-                
+
                 <Row className="mb-4">
                   <Col>
                     <Button variant="outline-danger" className="w-100 social-btn">
@@ -131,7 +131,7 @@ const Login = () => {
                     </Button>
                   </Col>
                 </Row>
-                
+
                 <div className="text-center">
                   <p className="mb-0">
                     Don't have an account?{' '}

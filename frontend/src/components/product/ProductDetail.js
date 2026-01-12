@@ -7,12 +7,12 @@ import { useCart } from '../../contexts/CartContext';
 import { useAuth } from '../../contexts/AuthContext';
 import axios from 'axios';
 import './ProductDetail.css';
-  const ProductDetail = () => {
+const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { addToCart } = useCart();
   const { isAuthenticated } = useAuth();
-  
+
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -31,7 +31,7 @@ import './ProductDetail.css';
     if (product && product.variants && product.variants.length > 0) {
       // Find variant that matches selected options
       const variant = product.variants.find(v => {
-        return Object.entries(selectedOptions).every(([key, value]) => 
+        return Object.entries(selectedOptions).every(([key, value]) =>
           v.options.get(key) === value
         );
       });
@@ -42,7 +42,7 @@ import './ProductDetail.css';
   const fetchProduct = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:5000/api/products/${id}`);
+      const response = await axios.get(`/api/products/${id}`);
       setProduct(response.data);
       setMainImage(response.data.images?.[0] || '/placeholder-product.jpg');
       setError('');
@@ -89,7 +89,7 @@ import './ProductDetail.css';
       setAddingToCart(false);
     }
   };
-  
+
   if (loading) {
     return (
       <Container className="py-4 text-center">
@@ -121,42 +121,42 @@ import './ProductDetail.css';
       </Container>
     );
   }
-    
-    return (
+
+  return (
     <Container className="py-4 product-detail-container">
       {cartMessage && (
-        <Alert 
+        <Alert
           variant={cartMessage.includes('successfully') ? 'success' : 'danger'}
-          dismissible 
+          dismissible
           onClose={() => setCartMessage('')}
         >
           {cartMessage}
         </Alert>
       )}
-      
+
       <Row>
         <Col lg={6} className="mb-4">
           <div className="product-gallery">
             <div className="main-image-container mb-3">
-              <img 
-                src={mainImage} 
-                alt={product.title} 
-                className="img-fluid rounded main-product-image" 
+              <img
+                src={mainImage}
+                alt={product.title}
+                className="img-fluid rounded main-product-image"
                 style={{ maxHeight: '400px', objectFit: 'cover' }}
               />
             </div>
             <div className="d-flex thumbnail-container">
               {product.images?.map((img, index) => (
-                <div 
-                  key={index} 
+                <div
+                  key={index}
                   className={`thumbnail-image-container me-2 ${mainImage === img ? 'active-thumbnail' : ''}`}
                   onClick={() => setMainImage(img)}
                   style={{ cursor: 'pointer' }}
                 >
-                  <img 
-                    src={img} 
-                    alt={`${product.title} ${index + 1}`} 
-                    className="img-fluid rounded thumbnail-image" 
+                  <img
+                    src={img}
+                    alt={`${product.title} ${index + 1}`}
+                    className="img-fluid rounded thumbnail-image"
                     style={{ width: '80px', height: '80px', objectFit: 'cover' }}
                   />
                 </div>
@@ -164,7 +164,7 @@ import './ProductDetail.css';
             </div>
           </div>
         </Col>
-        
+
         <Col lg={6}>
           <div className="product-info">
             <div className="d-flex justify-content-between align-items-start mb-2">
@@ -180,9 +180,9 @@ import './ProductDetail.css';
                 </Button>
               </div>
             </div>
-            
+
             <h2 className="product-title mb-3">{product.title}</h2>
-            
+
             <div className="pricing mb-3">
               <span className="current-price me-2" style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#28a745' }}>
                 ₹{selectedVariant ? selectedVariant.price : product.price}
@@ -244,18 +244,18 @@ import './ProductDetail.css';
                 )}
               </div>
             )}
-            
+
             <div className="condition mb-3">
               <Badge bg={
                 product.condition === "New" ? "success" :
-                product.condition === "Like New" ? "info" :
-                product.condition === "Good" ? "primary" :
-                "warning"
+                  product.condition === "Like New" ? "info" :
+                    product.condition === "Good" ? "primary" :
+                      "warning"
               }>
                 {product.condition}
               </Badge>
             </div>
-            
+
             <div className="seller-info mb-4">
               <Card className="border-0 bg-light">
                 <Card.Body className="py-3">
@@ -281,7 +281,7 @@ import './ProductDetail.css';
                 </Card.Body>
               </Card>
             </div>
-            
+
             <div className="product-meta mb-4">
               <div className="d-flex mb-2">
                 <div className="meta-icon me-2">
@@ -308,15 +308,15 @@ import './ProductDetail.css';
                 </div>
               </div>
             </div>
-            
+
             <div className="purchase-options mb-4">
               <Row className="align-items-center">
                 <Col xs="auto">
                   <Form.Group controlId="quantity">
                     <Form.Label>Quantity</Form.Label>
-                    <Form.Control 
-                      type="number" 
-                      min="1" 
+                    <Form.Control
+                      type="number"
+                      min="1"
                       max={product.stock || 10}
                       value={quantity}
                       onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
@@ -325,9 +325,9 @@ import './ProductDetail.css';
                   </Form.Group>
                 </Col>
                 <Col>
-                  <Button 
-                    variant="primary" 
-                    className="w-100 mb-2 btn-cart" 
+                  <Button
+                    variant="primary"
+                    className="w-100 mb-2 btn-cart"
                     onClick={handleAddToCart}
                     disabled={addingToCart || product.stock === 0}
                   >
@@ -356,7 +356,7 @@ import './ProductDetail.css';
                 </p>
               )}
             </div>
-            
+
             <div className="secure-transaction">
               <div className="d-flex align-items-center text-success mb-2">
                 <FontAwesomeIcon icon={faCheckCircle} className="me-2" />
@@ -370,7 +370,7 @@ import './ProductDetail.css';
           </div>
         </Col>
       </Row>
-      
+
       <Row className="mt-5">
         <Col>
           <Tabs defaultActiveKey="description" className="mb-4 product-tabs">
@@ -428,7 +428,7 @@ import './ProductDetail.css';
           </Tabs>
         </Col>
       </Row>
-      
+
       <Row className="mt-4">
         <Col>
           <h4>Similar Products</h4>

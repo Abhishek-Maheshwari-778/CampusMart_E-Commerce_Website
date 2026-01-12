@@ -12,7 +12,7 @@ const Register = () => {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  
+
   const { register } = useAuth();
   const navigate = useNavigate();
 
@@ -25,12 +25,12 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Validation
     if (formData.password !== formData.confirmPassword) {
       return setError('Passwords do not match');
     }
-    
+
     if (formData.password.length < 6) {
       return setError('Password must be at least 6 characters');
     }
@@ -38,13 +38,13 @@ const Register = () => {
     try {
       setError('');
       setLoading(true);
-      
+
       const result = await register({
         name: formData.name,
         email: formData.email,
         password: formData.password
       });
-      
+
       if (result.success) {
         navigate('/');
       } else {
@@ -61,12 +61,12 @@ const Register = () => {
     <Container className="mt-5">
       <Row className="justify-content-md-center">
         <Col md={6}>
-          <Card>
+          <Card className="glass-panel border-0">
             <Card.Body>
               <h2 className="text-center mb-4">Create Account</h2>
-              
+
               {error && <Alert variant="danger">{error}</Alert>}
-              
+
               <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3">
                   <Form.Label>Full Name</Form.Label>
@@ -116,9 +116,9 @@ const Register = () => {
                   />
                 </Form.Group>
 
-                <Button 
-                  variant="primary" 
-                  type="submit" 
+                <Button
+                  variant="primary"
+                  type="submit"
                   className="w-100 mb-3"
                   disabled={loading}
                 >

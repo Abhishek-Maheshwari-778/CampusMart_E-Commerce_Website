@@ -17,8 +17,8 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   // Configure axios defaults
-  axios.defaults.baseURL = 'http://localhost:5000/api';
-  
+  axios.defaults.baseURL = process.env.REACT_APP_API_URL || '/api';
+
   // Set auth token in axios headers if available
   const setAuthToken = (token) => {
     if (token) {
@@ -56,7 +56,7 @@ export const AuthProvider = ({ children }) => {
       setError(null);
       const response = await axios.post('/auth/register', userData);
       const { token, user: userInfo } = response.data;
-      
+
       setAuthToken(token);
       setUser(userInfo);
       return { success: true };
@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }) => {
       setError(null);
       const response = await axios.post('/auth/login', credentials);
       const { token, user: userInfo } = response.data;
-      
+
       setAuthToken(token);
       setUser(userInfo);
       return { success: true };

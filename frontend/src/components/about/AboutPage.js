@@ -52,8 +52,8 @@ const AboutPage = () => {
     },
     {
       name: "Palak Yadav",
-      role: "k.jpDeveloper",
-      image: "/team/palag",
+      role: "Developer",
+      image: "/team/palak.jpg",
     }
   ];
 
